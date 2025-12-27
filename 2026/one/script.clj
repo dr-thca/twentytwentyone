@@ -6,9 +6,11 @@
 (defn parse-line [line]
   (let [[dir & number] line] [(str dir) (parse-long (apply str number))]))
 
+(defn =1 [a b] (if (= a b) 1 0))
 (defn do-action [[cur_pos num_zero] [dir number]]
   (let [pos (if (= dir "L") (mod (- (+ cur_pos 100) (mod number 100)) 100) (mod (+ cur_pos (mod number 100)) 100))]
-    [pos (+ num_zero (if (= pos 0) 1 0))]))
+    [pos (+ num_zero (=1 pos 0))]))
+
 
 (->> "./data.txt"
      (slurp)
